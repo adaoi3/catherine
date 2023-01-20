@@ -1,0 +1,24 @@
+#logo-container {
+  display: flex;
+  align-items: center;
+  flex: 0 0 100px;
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+
+
+.login-logout-container {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  justify-content: flex-end;
+}
+
+a.selected {
+  --mdc-protected-button-container-color: #ffffff;
+  --mdc-protected-button-label-text-color: #673ab7;
+  cursor: default;
+}

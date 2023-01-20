@@ -1,0 +1,11 @@
+<div id="logo-container"><img src="../../../assets/static/catherine-logo.png" alt="Catherine logo"></div>
+<app-nav-bar></app-nav-bar>
+<div class="login-logout-container" *ngIf="!authService.isAuthenticated()">
+  <a mat-raised-button color="primary" routerLink="/log-in" routerLinkActive="active"
+     ariaCurrentWhenActive="page" [ngClass]="{'selected' : logInTabSelected()}">Log in</a>
+</div>
+
+<div class="login-logout-container" *ngIf="authService.isAuthenticated()">
+  <a mat-raised-button color="primary" routerLink="/log-in" routerLinkActive="active"
+     ariaCurrentWhenActive="page" (click)="deleteToken()">Log out</a>
+</div>

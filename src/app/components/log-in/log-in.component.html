@@ -1,0 +1,28 @@
+<h1 class="log-in-message">Logging in</h1>
+
+<form class="log-in-form" [formGroup]="createUserForm" #formDirective="ngForm"
+      (ngSubmit)="onSubmit(formDirective)">
+
+  <mat-form-field>
+    <mat-label>Login:</mat-label>
+    <input formControlName="login" type="text" matInput placeholder="Enter user's password">
+    <mat-error *ngIf="createUserForm.controls.login.invalid">
+      {{getErrorMessage(createUserForm.controls.login)}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Password:</mat-label>
+    <input formControlName="password" type="text" matInput placeholder="Enter user's password">
+    <mat-error *ngIf="createUserForm.controls.password.invalid">
+      {{getErrorMessage(createUserForm.controls.password)}}
+    </mat-error>
+  </mat-form-field>
+
+  <div class="mat-mdc-form-field-error" *ngIf="incorrectCredentials">
+    Incorrect login or password
+  </div>
+
+  <button mat-raised-button color="accent" id="log-in-button-margin-top" type="submit">Log in
+  </button>
+</form>

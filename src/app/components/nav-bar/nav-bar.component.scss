@@ -1,0 +1,19 @@
+:host {
+  display: flex;
+  align-items: center;
+}
+
+ul {
+  list-style: none;
+}
+
+#ul-horizontal li {
+  margin: 8px 8px 8px 0;
+  display: inline;
+}
+
+a.selected {
+  --mdc-protected-button-container-color: #ffffff;
+  --mdc-protected-button-label-text-color: #673ab7;
+  cursor: default;
+}

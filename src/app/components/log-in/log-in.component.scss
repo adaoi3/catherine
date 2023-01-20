@@ -1,0 +1,18 @@
+:host {
+  flex: 1 0 0;
+}
+
+h1.log-in-message {
+  display: flex;
+  justify-content: center;
+}
+
+form.log-in-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#log-in-button-margin-top {
+  margin-top: 10px;
+}
