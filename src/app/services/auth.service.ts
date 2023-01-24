@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { TokenDto } from "../interfaces/token-dto";
 import { AppSettings } from "../global-constants/app.settings";
 import { TokenJsonPayload } from "../interfaces/token-json-payload";
+import { ROLE } from "../interfaces/role.constants";
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +37,22 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     return !!localStorage.getItem('token');
+  }
+
+  isUser(): boolean {
+    let token = localStorage.getItem('token') || '';
+    let parsedToken = this.parseJwt(token);
+    let roles: string[] = parsedToken.roles || [];
+    return !!roles.find(role => role === ROLE.USER)
+  }
+
+  getCurrentUserId(): string {
+    let id = '';
+    let token = localStorage.getItem('token');
+    if (token) {
+      id = this.parseJwt(token).id;
+    }
+    return id;
   }
 
 }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,11 @@ export class HomeComponent {
 
   private userName = '';
 
-  constructor(private authService: AuthService) {
+  constructor(
+    public authService: AuthService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {
   }
 
   ngOnInit(): void {
@@ -25,4 +30,12 @@ export class HomeComponent {
       ? `Welcome to "Catherine" hotel, ${this.userName}!`
       : 'Welcome to "Catherine" hotel!';
   }
+
+  toApply(): void {
+    this.router.navigate(['/create-apply'],
+      { relativeTo: this.activatedRoute }).then(r => '');
+  }
+
+
+
 }

@@ -11,10 +11,16 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { LogInComponent } from './components/log-in/log-in.component';
 import { MatButtonModule } from "@angular/material/button";
 import { MatFormFieldModule } from "@angular/material/form-field";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatInputModule } from "@angular/material/input";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { HttpClientModule } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
+import { BookingComponent } from './components/booking/booking.component';
+import { MatLuxonDateModule } from "@angular/material-luxon-adapter";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatListModule } from "@angular/material/list";
+import { MatRadioModule } from "@angular/material/radio";
+import { AddTokenHeaderInterceptor } from "./interceptors/add-token-header.interceptor";
 
 @NgModule({
   declarations: [
@@ -24,7 +30,8 @@ import { HttpClientModule } from "@angular/common/http";
     HomeComponent,
     NavBarComponent,
     NotFoundComponent,
-    LogInComponent
+    LogInComponent,
+    BookingComponent
   ],
   imports: [
     BrowserModule,
@@ -34,9 +41,18 @@ import { HttpClientModule } from "@angular/common/http";
     ReactiveFormsModule,
     MatInputModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    MatLuxonDateModule,
+    HttpClientModule,
+    MatDatepickerModule,
+    MatListModule,
+    MatRadioModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AddTokenHeaderInterceptor,
+    multi: true,
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
