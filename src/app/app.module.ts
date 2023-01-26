@@ -21,6 +21,9 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatListModule } from "@angular/material/list";
 import { MatRadioModule } from "@angular/material/radio";
 import { AddTokenHeaderInterceptor } from "./interceptors/add-token-header.interceptor";
+import { BookingsComponent } from './components/bookings/bookings.component';
+import { MatTableModule } from "@angular/material/table";
+import { CommonModule } from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -31,7 +34,8 @@ import { AddTokenHeaderInterceptor } from "./interceptors/add-token-header.inter
     NavBarComponent,
     NotFoundComponent,
     LogInComponent,
-    BookingComponent
+    BookingComponent,
+    BookingsComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +50,9 @@ import { AddTokenHeaderInterceptor } from "./interceptors/add-token-header.inter
     MatDatepickerModule,
     MatListModule,
     MatRadioModule,
-    FormsModule
+    FormsModule,
+    MatTableModule,
+    CommonModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

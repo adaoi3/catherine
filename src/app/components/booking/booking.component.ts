@@ -24,7 +24,7 @@ export class BookingComponent {
   booking = this.formBuilder.group({
     id: 0,
     userId: parseInt(this.authService.getCurrentUserId()),
-    places: new FormControl(1, [
+    personCount: new FormControl(1, [
       Validators.required
     ]),
     roomType: new FormControl('Standard', [
@@ -71,11 +71,10 @@ export class BookingComponent {
     if (this.booking.valid) {
       this.bookingService.createBooking({
         userId: this.booking.value.userId || 0,
-        places: this.booking.value.places || 0,
+        personCount: this.booking.value.personCount || 0,
         roomType: this.booking.value.roomType || 'Default',
         stayTimeStart: this.stayTime.value.start?.toISODate(),
-        stayTimeEnd: this.stayTime.value.start?.toISODate(),
-        bookingDate: this.booking.value.bookingDate?.toISODate(),
+        stayTimeEnd: this.stayTime.value.end?.toISODate()
       }).subscribe(() => {
         this.booking.reset();
         formDirective.resetForm();

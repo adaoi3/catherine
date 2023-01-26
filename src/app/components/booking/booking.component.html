@@ -2,10 +2,10 @@
       (ngSubmit)="onSubmit(formDirective)">
 
   <mat-form-field>
-    <mat-label>How many places to book:</mat-label>
-    <input formControlName="places" type="number" matInput placeholder="Places to book">
-    <mat-error *ngIf="booking.controls.places.invalid">
-      {{getErrorMessage(booking.controls.places)}}
+    <mat-label>How many persons:</mat-label>
+    <input formControlName="personCount" type="number" matInput placeholder="Places to book">
+    <mat-error *ngIf="booking.controls.personCount.invalid">
+      {{getErrorMessage(booking.controls.personCount)}}
     </mat-error>
   </mat-form-field>
 

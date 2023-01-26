@@ -3,8 +3,9 @@ import { DateTime } from "luxon";
 export interface Booking {
   id?: number;
   userId: number;
-  places: number;
+  personCount: number;
   roomType: string;
-  stayTime: DateTime[];
-  bookingDate: DateTime;
+  stayTimeStart?: DateTime;
+  stayTimeEnd?: DateTime;
+  bookingDate?: DateTime;
 }

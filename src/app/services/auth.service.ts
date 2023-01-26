@@ -46,6 +46,13 @@ export class AuthService {
     return !!roles.find(role => role === ROLE.USER)
   }
 
+  isAdmin(): boolean {
+    let token = localStorage.getItem('token') || '';
+    let parsedToken = this.parseJwt(token);
+    let roles: string[] = parsedToken.roles || [];
+    return !!roles.find(role => role === ROLE.ADMIN)
+  }
+
   getCurrentUserId(): string {
     let id = '';
     let token = localStorage.getItem('token');

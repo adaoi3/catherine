@@ -1,0 +1,48 @@
+<button (click)="createHardcodedBookingForTests()">Create random booking</button>
+
+<table mat-table [dataSource]="bookings" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef>id</th>
+    <td mat-cell *matCellDef="let booking">{{booking.id}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="userId">
+    <th mat-header-cell *matHeaderCellDef>User id</th>
+    <td mat-cell *matCellDef="let booking">{{booking.userId}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="personCount">
+    <th mat-header-cell *matHeaderCellDef>Person count</th>
+    <td mat-cell *matCellDef="let booking">{{booking.personCount}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="roomType">
+    <th mat-header-cell *matHeaderCellDef>Room type</th>
+    <td mat-cell *matCellDef="let booking">{{booking.roomType}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="stayTimeStart">
+    <th mat-header-cell *matHeaderCellDef>Stay time start</th>
+    <td mat-cell *matCellDef="let booking">
+      {{booking.stayTimeStart.toISODate()}}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="stayTimeEnd">
+    <th mat-header-cell *matHeaderCellDef>Stay time end</th>
+    <td mat-cell *matCellDef="let booking">
+      {{booking.stayTimeEnd.toISODate()}}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="bookingDate">
+    <th mat-header-cell *matHeaderCellDef>Booking date</th>
+    <td mat-cell *matCellDef="let booking">
+      {{booking.bookingDate | date:'dd-MM-yyyy, h:mm a'}}
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

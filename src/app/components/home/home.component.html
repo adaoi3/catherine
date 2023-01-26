@@ -1,5 +1,5 @@
 <h1>{{getWelcomeMessage()}}</h1>
-<h1>Please, make apply for a hotel number.</h1>
+<h1 *ngIf="authService.isUser()">Please, make apply for a hotel number.</h1>
 <div class="booking">
   <a mat-raised-button color="accent" routerLink="/booking" routerLinkActive="active"
      ariaCurrentWhenActive="page" *ngIf="authService.isUser() || !authService.isAuthenticated()">
