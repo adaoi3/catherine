@@ -1,0 +1,5 @@
+export const STATUS_TYPES = {
+  PENDING: "PENDING",
+  BOOKED: "BOOKED",
+  DECLINED: "DECLINED"
+};

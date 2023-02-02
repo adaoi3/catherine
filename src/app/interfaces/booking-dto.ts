@@ -6,4 +6,7 @@ export interface BookingDto {
   stayTimeStart?: string;
   stayTimeEnd?: string;
   bookingDate?: string;
+  adminId?: number;
+  roomId?: number;
+  statusId?: number;
 }

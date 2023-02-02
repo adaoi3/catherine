@@ -8,4 +8,7 @@ export interface Booking {
   stayTimeStart?: DateTime;
   stayTimeEnd?: DateTime;
   bookingDate?: DateTime;
+  adminId?: number;
+  roomId?: number;
+  statusId?: number;
 }

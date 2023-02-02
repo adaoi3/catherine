@@ -1,4 +1,14 @@
-<button (click)="createHardcodedBookingForTests()">Create random booking</button>
+<div class="filter">
+<mat-form-field appearance="outline">
+  <mat-label>Filter by status</mat-label>
+  <mat-select [(value)]="selectedStatus" (selectionChange)="doSomething($event)">
+    <mat-option></mat-option>
+    <mat-option [value]="status" *ngFor="let status of statusTypesArray">
+      {{status | capitalizedWord}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+</div>
 
 <table mat-table [dataSource]="bookings" class="mat-elevation-z8">
 
@@ -43,6 +53,16 @@
     </td>
   </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <ng-container matColumnDef="adminId">
+    <th mat-header-cell *matHeaderCellDef>Admin id</th>
+    <td mat-cell *matCellDef="let booking">{{booking.adminId}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="roomId">
+    <th mat-header-cell *matHeaderCellDef>Room id</th>
+    <td mat-cell *matCellDef="let booking">{{booking.roomId}}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="getDisplayedColumns()"></tr>
+  <tr mat-row *matRowDef="let row; columns: getDisplayedColumns();"></tr>
 </table>

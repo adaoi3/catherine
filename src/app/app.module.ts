@@ -24,6 +24,9 @@ import { AddTokenHeaderInterceptor } from "./interceptors/add-token-header.inter
 import { BookingsComponent } from './components/bookings/bookings.component';
 import { MatTableModule } from "@angular/material/table";
 import { CommonModule } from "@angular/common";
+import { MatButtonToggleModule } from "@angular/material/button-toggle";
+import { MatSelectModule } from "@angular/material/select";
+import { CapitalizedWordPipe } from './pipes/capitalized-word.pipe';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,8 @@ import { CommonModule } from "@angular/common";
     NotFoundComponent,
     LogInComponent,
     BookingComponent,
-    BookingsComponent
+    BookingsComponent,
+    CapitalizedWordPipe
   ],
   imports: [
     BrowserModule,
@@ -52,7 +56,9 @@ import { CommonModule } from "@angular/common";
     MatRadioModule,
     FormsModule,
     MatTableModule,
-    CommonModule
+    CommonModule,
+    MatButtonToggleModule,
+    MatSelectModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
