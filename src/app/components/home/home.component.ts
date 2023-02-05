@@ -31,11 +31,4 @@ export class HomeComponent {
       : 'Welcome to "Catherine" hotel!';
   }
 
-  toApply(): void {
-    this.router.navigate(['/create-apply'],
-      { relativeTo: this.activatedRoute }).then(r => '');
-  }
-
-
-
 }

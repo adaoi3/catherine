@@ -3,6 +3,7 @@ import { Booking } from "../../interfaces/booking";
 import { BookingService } from "../../services/booking.service";
 import { STATUS_TYPES } from "../../interfaces/status.constants";
 import { MatSelectChange } from "@angular/material/select";
+import { AuthService } from "../../services/auth.service";
 
 @Component({
   selector: 'app-bookings',
@@ -18,7 +19,8 @@ export class BookingsComponent implements OnInit {
   selectedStatus = this.statusTypesArray[0];
 
   constructor(
-    private bookingService: BookingService
+    private bookingService: BookingService,
+    public authService: AuthService
   ) {
   }
 
@@ -39,28 +41,14 @@ export class BookingsComponent implements OnInit {
         'stayTimeEnd', 'bookingDate', 'adminId'];
     }
     return ['id', 'userId', 'personCount', 'roomType', 'stayTimeStart',
-      'stayTimeEnd', 'bookingDate'];
+      'stayTimeEnd', 'bookingDate', 'actions'];
   }
 
   doSomething($event: MatSelectChange) {
-    if ($event.value === STATUS_TYPES.PENDING) {
-      this.bookingService.getBookingsByStatus(STATUS_TYPES.PENDING).subscribe({
+      this.bookingService.getBookingsByStatus($event.value).subscribe({
         next: bookings => this.bookings = bookings,
         error: error => console.error(error)
       })
-    }
-    if ($event.value === STATUS_TYPES.BOOKED) {
-      this.bookingService.getBookingsByStatus(STATUS_TYPES.BOOKED).subscribe({
-        next: bookings => this.bookings = bookings,
-        error: error => console.error(error)
-      })
-    }
-    if ($event.value === STATUS_TYPES.DECLINED) {
-      this.bookingService.getBookingsByStatus(STATUS_TYPES.DECLINED).subscribe({
-        next: bookings => this.bookings = bookings,
-        error: error => console.error(error)
-      })
-    }
   }
 
 }

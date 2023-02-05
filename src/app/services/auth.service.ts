@@ -5,6 +5,7 @@ import { TokenDto } from "../interfaces/token-dto";
 import { AppSettings } from "../global-constants/app.settings";
 import { TokenJsonPayload } from "../interfaces/token-json-payload";
 import { ROLE } from "../interfaces/role.constants";
+import { RolesForPermission } from "../interfaces/roles-for-permission";
 
 @Injectable({
   providedIn: 'root'
@@ -60,6 +61,20 @@ export class AuthService {
       id = this.parseJwt(token).id;
     }
     return id;
+  }
+
+  checkEnoughPermissions(rolesForPermission: RolesForPermission): boolean {
+    let token = localStorage.getItem('token') || '';
+    let parsedToken = this.parseJwt(token);
+    let roles: string[] = parsedToken.roles || [];
+    for (const userRole of roles) {
+      for (const allowedRole of rolesForPermission.allowedRoles) {
+        if (userRole === allowedRole) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
 }

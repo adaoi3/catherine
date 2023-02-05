@@ -5,17 +5,25 @@ import { NotFoundComponent } from "./components/not-found/not-found.component";
 import { LogInComponent } from "./components/log-in/log-in.component";
 import { BookingComponent } from "./components/booking/booking.component";
 import { BookingsComponent } from "./components/bookings/bookings.component";
+import { PermissionGuard } from "./guard/permission-guard.service";
+import { RolesForPermission } from "./interfaces/roles-for-permission";
+import { ROLE } from "./interfaces/role.constants";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'log-in', component: LogInComponent },
   { path: 'booking', component: BookingComponent },
-  { path: 'bookings', component: BookingsComponent },
+  {
+    path: 'bookings', component: BookingsComponent,
+    data: { allowedRoles: [ROLE.ADMIN] } as RolesForPermission,
+    canActivate: [PermissionGuard]
+  },
   { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [PermissionGuard]
 })
 export class AppRoutingModule { }
