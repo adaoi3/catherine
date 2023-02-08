@@ -14,10 +14,10 @@ import { ROOM_TYPES } from "../../interfaces/room-type.constants";
 
 @Component({
   selector: 'app-booking',
-  templateUrl: './booking.component.html',
-  styleUrls: ['./booking.component.scss']
+  templateUrl: './create-booking.component.html',
+  styleUrls: ['./create-booking.component.scss']
 })
-export class BookingComponent {
+export class CreateBookingComponent {
 
   roomType: string[] = ROOM_TYPES.ALL_ROOM_TYPES;
 
@@ -25,7 +25,9 @@ export class BookingComponent {
     id: 0,
     userId: parseInt(this.authService.getCurrentUserId()),
     personCount: new FormControl(1, [
-      Validators.required
+      Validators.required,
+      Validators.min(1),
+      Validators.max(5)
     ]),
     roomType: new FormControl('Standard', [
       Validators.required
@@ -63,6 +65,9 @@ export class BookingComponent {
     }
     if (formControl.hasError('uniqueLogin')) {
       return 'Not unique login';
+    }
+    if (formControl.hasError('min') || formControl.hasError('max')) {
+      return 'must be between 1 and 5';
     }
     return formControl.hasError('email') ? 'Not a valid email' : 'Unknown error';
   }

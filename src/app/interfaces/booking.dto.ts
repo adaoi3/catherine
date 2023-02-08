@@ -8,5 +8,5 @@ export interface BookingDto {
   bookingDate?: string;
   adminId?: number;
   roomId?: number;
-  statusId?: number;
+  status?: string;
 }

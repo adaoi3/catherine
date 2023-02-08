@@ -10,5 +10,5 @@ export interface Booking {
   bookingDate?: DateTime;
   adminId?: number;
   roomId?: number;
-  statusId?: number;
+  status?: string;
 }

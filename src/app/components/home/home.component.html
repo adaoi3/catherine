@@ -2,7 +2,7 @@
 <h1 *ngIf="authService.isUser() || authService.isAdmin()">Please, make apply for a hotel number.</h1>
 <h1 *ngIf="!authService.isAuthenticated()">Please, register or login to book.</h1>
 <div class="booking">
-  <a mat-raised-button color="accent" routerLink="/booking" routerLinkActive="active"
+  <a mat-raised-button color="accent" routerLink="/create-booking" routerLinkActive="active"
      ariaCurrentWhenActive="page" *ngIf="authService.isUser() || authService.isAdmin()">
     Booking
   </a>

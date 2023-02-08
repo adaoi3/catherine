@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { AppSettings } from "../global-constants/app.settings";
 import { map, Observable } from "rxjs";
-import { BookingDto } from "../interfaces/booking-dto";
+import { BookingDto } from "../interfaces/booking.dto";
 import { Booking } from "../interfaces/booking";
 import { DateTime } from "luxon";
+import { ConfirmBookingDto } from "../interfaces/confirm-booking.dto";
+import { STATUS_TYPES } from "../interfaces/status.constants";
 
 @Injectable({
   providedIn: 'root'
@@ -15,13 +17,13 @@ export class BookingService {
   }
 
   createBooking(bookingDto: BookingDto): Observable<Booking> {
-    return this.http.post<Booking>(AppSettings.API_ENDPOINT + '/booking', bookingDto);
+    return this.http.post<Booking>(AppSettings.API_ENDPOINT + '/bookings', bookingDto);
   }
 
   getBookingsByStatus(statusName: string): Observable<Booking[]> {
     let queryParams = new HttpParams();
     queryParams = queryParams.append('statusName', statusName);
-    return this.http.get<BookingDto[]>(AppSettings.API_ENDPOINT + '/booking', {
+    return this.http.get<BookingDto[]>(AppSettings.API_ENDPOINT + '/bookings', {
       params: queryParams
     }).pipe(
       map(response => response.map(bookingDto => {
@@ -35,10 +37,20 @@ export class BookingService {
           bookingDate: bookingDto.bookingDate ? DateTime.fromISO(bookingDto.bookingDate) : undefined,
           adminId: bookingDto.adminId,
           roomId: bookingDto.roomId,
-          statusId: bookingDto.statusId
+          status: bookingDto.status
         };
       }))
     )
+  }
+
+  confirmBooking(confirmBookingDto: ConfirmBookingDto, bookingId?: number) {
+    return this.http.post<Booking>(`${AppSettings.API_ENDPOINT}/bookings/${bookingId}/confirm`,
+      confirmBookingDto);
+  }
+
+  declineBooking(bookingId: number) {
+    return this.http.post(`${AppSettings.API_ENDPOINT}/bookings/${bookingId}/decline`,
+      STATUS_TYPES.DECLINED);
   }
 
 }

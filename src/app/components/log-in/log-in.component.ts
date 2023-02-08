@@ -52,10 +52,10 @@ export class LogInComponent {
   onSubmit(formDirective: FormGroupDirective): void {
     localStorage.removeItem('token');
     if (this.createUserForm.valid) {
-      this.authService.getToken(
-        this.createUserForm.value.login || '',
-        this.createUserForm.value.password || ''
-      ).subscribe({
+      this.authService.getToken({
+        login: this.createUserForm.value.login || '',
+        password: this.createUserForm.value.password || ''
+      }).subscribe({
         next: token => {
           localStorage.setItem('token', token.token);
           this.createUserForm.reset();

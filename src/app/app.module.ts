@@ -15,7 +15,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatInputModule } from "@angular/material/input";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
-import { BookingComponent } from './components/booking/booking.component';
+import { CreateBookingComponent } from './components/create-booking/create-booking.component';
 import { MatLuxonDateModule } from "@angular/material-luxon-adapter";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatListModule } from "@angular/material/list";
@@ -27,6 +27,8 @@ import { CommonModule } from "@angular/common";
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
 import { MatSelectModule } from "@angular/material/select";
 import { CapitalizedWordPipe } from './pipes/capitalized-word.pipe';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { MatDialogModule } from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -37,9 +39,10 @@ import { CapitalizedWordPipe } from './pipes/capitalized-word.pipe';
     NavBarComponent,
     NotFoundComponent,
     LogInComponent,
-    BookingComponent,
+    CreateBookingComponent,
     BookingsComponent,
-    CapitalizedWordPipe
+    CapitalizedWordPipe,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +61,8 @@ import { CapitalizedWordPipe } from './pipes/capitalized-word.pipe';
     MatTableModule,
     CommonModule,
     MatButtonToggleModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
