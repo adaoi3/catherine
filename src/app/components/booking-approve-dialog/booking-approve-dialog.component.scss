@@ -1,0 +1,14 @@
+.actions-container {
+  justify-content: space-around;
+}
+
+.select-room {
+  display: flex;
+  justify-content: center;
+}
+
+.no-rooms-available {
+  display: flex;
+  justify-content: center;
+  color: red;
+}

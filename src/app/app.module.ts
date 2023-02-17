@@ -27,8 +27,9 @@ import { CommonModule } from "@angular/common";
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
 import { MatSelectModule } from "@angular/material/select";
 import { CapitalizedWordPipe } from './pipes/capitalized-word.pipe';
-import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { BookingApproveDialogComponent } from './components/booking-approve-dialog/booking-approve-dialog.component';
 import { MatDialogModule } from "@angular/material/dialog";
+import { BookingDeclineDialogComponent } from './components/booking-decline-dialog/booking-decline-dialog.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { MatDialogModule } from "@angular/material/dialog";
     CreateBookingComponent,
     BookingsComponent,
     CapitalizedWordPipe,
-    ConfirmDialogComponent
+    BookingApproveDialogComponent,
+    BookingDeclineDialogComponent
   ],
   imports: [
     BrowserModule,

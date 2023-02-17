@@ -4,9 +4,14 @@ import { BookingService } from "../../services/booking.service";
 import { STATUS_TYPES } from "../../interfaces/status.constants";
 import { MatSelectChange } from "@angular/material/select";
 import { AuthService } from "../../services/auth.service";
-import { ConfirmDialogComponent } from "../confirm-dialog/confirm-dialog.component";
+import {
+  BookingApproveDialogComponent
+} from "../booking-approve-dialog/booking-approve-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
 import { ConfirmBookingDto } from "../../interfaces/confirm-booking.dto";
+import {
+  BookingDeclineDialogComponent
+} from "../booking-decline-dialog/booking-decline-dialog.component";
 
 @Component({
   selector: 'app-bookings',
@@ -24,7 +29,7 @@ export class BookingsComponent implements OnInit {
   constructor(
     private bookingService: BookingService,
     public authService: AuthService,
-    public dialog: MatDialog,
+    public dialog: MatDialog
   ) {
   }
 
@@ -56,24 +61,21 @@ export class BookingsComponent implements OnInit {
   }
 
   confirmBooking(booking: Booking): void {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+    const dialogRef = this.dialog.open(BookingApproveDialogComponent, {
       data: {
         title: 'Approve Booking',
-        message: 'Please, choose room number:'
+        message: 'Please, choose room number:',
+        booking: booking
       },
     });
 
-    const convertToConfirmBookingDto = (book: Booking): ConfirmBookingDto => {
-      return {
-        roomId: 2,
-        status: STATUS_TYPES.BOOKED
-      } as ConfirmBookingDto
-    }
-    let convertedConfirmBookingDto = convertToConfirmBookingDto(booking);
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.bookingService.confirmBooking(convertedConfirmBookingDto, booking.id).subscribe({
+    dialogRef.afterClosed().subscribe(availableRoom => {
+      if (availableRoom) {
+        let confirmBookingDto = {
+          roomId: availableRoom,
+          status: STATUS_TYPES.BOOKED
+        } as ConfirmBookingDto
+        this.bookingService.confirmBooking(confirmBookingDto, booking.id).subscribe({
             error: error => console.error(error),
             complete: () => {
               location.reload();
@@ -85,16 +87,17 @@ export class BookingsComponent implements OnInit {
   }
 
   declineBooking(bookingId: number): void {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+    const dialogRef = this.dialog.open(BookingDeclineDialogComponent, {
       data: {
         title: 'Decline Booking',
         message: 'Are you sure you want to decline booking?'
       },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
+    dialogRef.afterClosed().subscribe(decline => {
+      if (decline) {
         this.bookingService.declineBooking(bookingId).subscribe({
+            error: err => console.error(err),
             complete: () => {
               location.reload();
             }

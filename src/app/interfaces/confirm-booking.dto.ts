@@ -1,4 +1,4 @@
 export interface ConfirmBookingDto {
-  adminId?: number;
+  roomId?: number;
   status: string;
 }

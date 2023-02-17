@@ -2,7 +2,6 @@
 <mat-form-field appearance="outline">
   <mat-label>Filter by status</mat-label>
   <mat-select [(value)]="selectedStatus" (selectionChange)="getBookingsBySelectedStatus($event)">
-    <mat-option></mat-option>
     <mat-option [value]="status" *ngFor="let status of statusTypesArray">
       {{status | capitalizedWord}}
     </mat-option>

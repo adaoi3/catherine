@@ -1,0 +1,26 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content>
+  <p>{{data.message}}</p>
+  <p *ngIf="selectedRoom"><small>Room number / Room type / Capacity</small></p>
+</div>
+
+  <form *ngIf="selectedRoom" class="select-room">
+    <mat-form-field appearance="outline">
+      <mat-label>Available rooms</mat-label>
+      <select *ngIf="roomsAvailable" matNativeControl [(ngModel)]="selectedRoom" name="selectedRoom">
+        <option *ngFor="let availableRoom of availableRooms" [value]="availableRoom.id">
+          №{{availableRoom.id}} / {{availableRoom.roomType | capitalizedWord}}
+          / {{availableRoom.capacity}}
+        </option>
+      </select>
+    </mat-form-field>
+  </form>
+
+<div *ngIf="!roomsAvailable" class="no-rooms-available">No rooms available.</div>
+
+<div class="actions-container" mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="selectedRoom" [disabled]="!roomsAvailable">
+    Confirm
+  </button>
+  <button mat-button (click)="onNoClick()" cdkFocusInitial>Cancel</button>
+</div>

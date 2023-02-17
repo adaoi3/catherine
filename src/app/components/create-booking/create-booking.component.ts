@@ -77,7 +77,7 @@ export class CreateBookingComponent {
       this.bookingService.createBooking({
         userId: this.booking.value.userId || 0,
         personCount: this.booking.value.personCount || 0,
-        roomType: this.booking.value.roomType || 'Default',
+        roomType: this.booking.value.roomType || 'Standard',
         stayTimeStart: this.stayTime.value.start?.toISODate(),
         stayTimeEnd: this.stayTime.value.end?.toISODate()
       }).subscribe(() => {
