@@ -24,4 +24,8 @@ export class NavBarComponent {
     return this.router.url.includes('/bookings');
   }
 
+  userBookingsTabSelected(): boolean {
+    return this.router.url.includes('/user-bookings');
+  }
+
 }

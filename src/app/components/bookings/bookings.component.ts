@@ -34,7 +34,7 @@ export class BookingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.bookingService.getBookingsByStatus(STATUS_TYPES.PENDING).subscribe({
+    this.bookingService.getByStatus(STATUS_TYPES.PENDING).subscribe({
       next: bookings => this.bookings = bookings,
       error: error => console.error(error)
     })
@@ -54,7 +54,7 @@ export class BookingsComponent implements OnInit {
   }
 
   getBookingsBySelectedStatus($event: MatSelectChange): void {
-    this.bookingService.getBookingsByStatus($event.value).subscribe({
+    this.bookingService.getByStatus($event.value).subscribe({
       next: bookings => this.bookings = bookings,
       error: error => console.error(error)
     })
@@ -75,7 +75,7 @@ export class BookingsComponent implements OnInit {
           roomId: availableRoom,
           status: STATUS_TYPES.BOOKED
         } as ConfirmBookingDto
-        this.bookingService.confirmBooking(confirmBookingDto, booking.id).subscribe({
+        this.bookingService.confirm(confirmBookingDto, booking.id).subscribe({
             error: error => console.error(error),
             complete: () => {
               location.reload();
@@ -96,7 +96,7 @@ export class BookingsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(decline => {
       if (decline) {
-        this.bookingService.declineBooking(bookingId).subscribe({
+        this.bookingService.decline(bookingId).subscribe({
             error: err => console.error(err),
             complete: () => {
               location.reload();

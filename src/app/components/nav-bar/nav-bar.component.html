@@ -6,11 +6,20 @@
         Home
       </a>
     </li>
+
     <li>
       <a mat-raised-button color="primary" routerLink="/bookings" routerLinkActive="active"
          ariaCurrentWhenActive="page" [ngClass]="{'selected' : bookingsTabSelected()}"
          *ngIf="authService.isAdmin()">
         Bookings
+      </a>
+    </li>
+
+    <li>
+      <a mat-raised-button color="primary" routerLink="/user-bookings" routerLinkActive="active"
+         ariaCurrentWhenActive="page" [ngClass]="{'selected' : userBookingsTabSelected()}"
+         *ngIf="authService.isUser()">
+        Your bookings
       </a>
     </li>
   </ul>

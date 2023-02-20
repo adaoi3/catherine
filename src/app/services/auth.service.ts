@@ -46,11 +46,11 @@ export class AuthService {
     return !!roles.find(role => role === ROLE.ADMIN)
   }
 
-  getCurrentUserId(): string {
-    let id = '';
+  getCurrentUserId(): number {
+    let id = 0;
     let token = localStorage.getItem('token');
     if (token) {
-      id = this.parseJwt(token).id;
+      id = parseInt(this.parseJwt(token).id);
     }
     return id;
   }

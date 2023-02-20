@@ -1,5 +1,5 @@
 <h1>{{getWelcomeMessage()}}</h1>
-<h1 *ngIf="authService.isUser() || authService.isAdmin()">Please, make apply for a hotel number.</h1>
+<h1 *ngIf="authService.isUser() || authService.isAdmin()">Please make a hotel room booking.</h1>
 <h1 *ngIf="!authService.isAuthenticated()">Please, register or login to book.</h1>
 <div class="booking">
   <a mat-raised-button color="accent" routerLink="/create-booking" routerLinkActive="active"

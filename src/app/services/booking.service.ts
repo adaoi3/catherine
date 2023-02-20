@@ -16,11 +16,11 @@ export class BookingService {
   constructor(private http: HttpClient) {
   }
 
-  createBooking(bookingDto: BookingDto): Observable<Booking> {
+  create(bookingDto: BookingDto): Observable<Booking> {
     return this.http.post<Booking>(AppSettings.API_ENDPOINT + '/bookings', bookingDto);
   }
 
-  getBookingsByStatus(statusName: string): Observable<Booking[]> {
+  getByStatus(statusName: string): Observable<Booking[]> {
     let queryParams = new HttpParams();
     queryParams = queryParams.append('statusName', statusName);
     return this.http.get<BookingDto[]>(AppSettings.API_ENDPOINT + '/bookings', {
@@ -43,14 +43,37 @@ export class BookingService {
     )
   }
 
-  confirmBooking(confirmBookingDto: ConfirmBookingDto, bookingId?: number) {
+  getByUserId(UserId: number): Observable<Booking[]> {
+    return this.http.get<BookingDto[]>(`${AppSettings.API_ENDPOINT}/bookings/${UserId}`).pipe(
+      map(response => response.map(bookingDto => {
+        return {
+          id: bookingDto.id,
+          userId: bookingDto.userId,
+          personCount: bookingDto.personCount,
+          roomType: bookingDto.roomType,
+          stayTimeStart: bookingDto.stayTimeStart ? DateTime.fromISO(bookingDto.stayTimeStart) : undefined,
+          stayTimeEnd: bookingDto.stayTimeEnd ? DateTime.fromISO(bookingDto.stayTimeEnd) : undefined,
+          bookingDate: bookingDto.bookingDate ? DateTime.fromISO(bookingDto.bookingDate) : undefined,
+          adminId: bookingDto.adminId,
+          roomId: bookingDto.roomId,
+          status: bookingDto.status
+        };
+      }))
+    )
+  }
+
+  confirm(confirmBookingDto: ConfirmBookingDto, bookingId?: number) {
     return this.http.post<Booking>(`${AppSettings.API_ENDPOINT}/bookings/${bookingId}/confirm`,
       confirmBookingDto);
   }
 
-  declineBooking(bookingId: number) {
-    return this.http.post(`${AppSettings.API_ENDPOINT}/bookings/${bookingId}/decline`,
+  decline(id: number) {
+    return this.http.post(`${AppSettings.API_ENDPOINT}/bookings/${id}/decline`,
       STATUS_TYPES.DECLINED);
+  }
+
+  delete(id: number) {
+    return this.http.delete(`${AppSettings.API_ENDPOINT}/bookings/${id}/cancel`)
   }
 
 }

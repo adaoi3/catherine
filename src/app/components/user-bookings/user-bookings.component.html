@@ -1,0 +1,172 @@
+<h2 *ngIf="allBookings.length === 0" class="zero-bookings">You don't have any bookings...</h2>
+
+<table mat-table [dataSource]="pendingBookings" class="mat-elevation-z8"
+       *ngIf="authService.isUser() && pendingBookings.length > 0">
+  <caption><h2>Your pending bookings:</h2></caption>
+
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef>id</th>
+    <td mat-cell *matCellDef="let booking">{{booking.id}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="userId">
+    <th mat-header-cell *matHeaderCellDef>User id</th>
+    <td mat-cell *matCellDef="let booking">{{booking.userId}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="personCount">
+    <th mat-header-cell *matHeaderCellDef>Person count</th>
+    <td mat-cell *matCellDef="let booking">{{booking.personCount}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="roomType">
+    <th mat-header-cell *matHeaderCellDef>Room type</th>
+    <td mat-cell *matCellDef="let booking">{{booking.roomType | capitalizedWord}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="stayTimeStart">
+    <th mat-header-cell *matHeaderCellDef>Stay time start</th>
+    <td mat-cell *matCellDef="let booking">
+      {{booking.stayTimeStart.toISODate()}}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="stayTimeEnd">
+    <th mat-header-cell *matHeaderCellDef>Stay time end</th>
+    <td mat-cell *matCellDef="let booking">
+      {{booking.stayTimeEnd.toISODate()}}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="bookingDate">
+    <th mat-header-cell *matHeaderCellDef>Booking date</th>
+    <td mat-cell *matCellDef="let booking">
+      {{booking.bookingDate | date:'dd-MM-yyyy, h:mm a'}}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Cancellation</th>
+    <td mat-cell *matCellDef="let booking">
+      <button class="margin-4" mat-stroked-button color="warn" (click)="cancelBooking(booking.id)">
+        Cancel
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="pendingBookingsDisplayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: pendingBookingsDisplayedColumns;"></tr>
+</table>
+
+<table mat-table [dataSource]="bookedBookings" class="mat-elevation-z8"
+       *ngIf="authService.isUser() && bookedBookings.length > 0">
+  <caption><h2 class="margin-top-30">Your booked bookings:</h2></caption>
+
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef>id</th>
+    <td mat-cell *matCellDef="let booking">{{booking.id}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="userId">
+    <th mat-header-cell *matHeaderCellDef>User id</th>
+    <td mat-cell *matCellDef="let booking">{{booking.userId}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="personCount">
+    <th mat-header-cell *matHeaderCellDef>Person count</th>
+    <td mat-cell *matCellDef="let booking">{{booking.personCount}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="roomType">
+    <th mat-header-cell *matHeaderCellDef>Room type</th>
+    <td mat-cell *matCellDef="let booking">{{booking.roomType | capitalizedWord}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="stayTimeStart">
+    <th mat-header-cell *matHeaderCellDef>Stay time start</th>
+    <td mat-cell *matCellDef="let booking">
+      {{booking.stayTimeStart.toISODate()}}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="stayTimeEnd">
+    <th mat-header-cell *matHeaderCellDef>Stay time end</th>
+    <td mat-cell *matCellDef="let booking">
+      {{booking.stayTimeEnd.toISODate()}}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="bookingDate">
+    <th mat-header-cell *matHeaderCellDef>Booking date</th>
+    <td mat-cell *matCellDef="let booking">
+      {{booking.bookingDate | date:'dd-MM-yyyy, h:mm a'}}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="adminId">
+    <th mat-header-cell *matHeaderCellDef>Admin id</th>
+    <td mat-cell *matCellDef="let booking">{{booking.adminId}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="roomId">
+    <th mat-header-cell *matHeaderCellDef>Room id</th>
+    <td mat-cell *matCellDef="let booking">{{booking.roomId}}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="bookedBookingsDisplayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: bookedBookingsDisplayedColumns;"></tr>
+</table>
+
+<table mat-table [dataSource]="declinedBookings" class="mat-elevation-z8"
+       *ngIf="authService.isUser() && declinedBookings.length > 0">
+  <caption><h2 class="margin-top-30">Your declined bookings:</h2></caption>
+
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef>id</th>
+    <td mat-cell *matCellDef="let booking">{{booking.id}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="userId">
+    <th mat-header-cell *matHeaderCellDef>User id</th>
+    <td mat-cell *matCellDef="let booking">{{booking.userId}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="personCount">
+    <th mat-header-cell *matHeaderCellDef>Person count</th>
+    <td mat-cell *matCellDef="let booking">{{booking.personCount}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="roomType">
+    <th mat-header-cell *matHeaderCellDef>Room type</th>
+    <td mat-cell *matCellDef="let booking">{{booking.roomType | capitalizedWord}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="stayTimeStart">
+    <th mat-header-cell *matHeaderCellDef>Stay time start</th>
+    <td mat-cell *matCellDef="let booking">
+      {{booking.stayTimeStart.toISODate()}}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="stayTimeEnd">
+    <th mat-header-cell *matHeaderCellDef>Stay time end</th>
+    <td mat-cell *matCellDef="let booking">
+      {{booking.stayTimeEnd.toISODate()}}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="bookingDate">
+    <th mat-header-cell *matHeaderCellDef>Booking date</th>
+    <td mat-cell *matCellDef="let booking">
+      {{booking.bookingDate | date:'dd-MM-yyyy, h:mm a'}}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="adminId">
+    <th mat-header-cell *matHeaderCellDef>Admin id</th>
+    <td mat-cell *matCellDef="let booking">{{booking.adminId}}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="declinedBookingsDisplayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: declinedBookingsDisplayedColumns;"></tr>
+</table>

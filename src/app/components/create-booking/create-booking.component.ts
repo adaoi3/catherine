@@ -23,7 +23,7 @@ export class CreateBookingComponent {
 
   booking = this.formBuilder.group({
     id: 0,
-    userId: parseInt(this.authService.getCurrentUserId()),
+    userId: this.authService.getCurrentUserId(),
     personCount: new FormControl(1, [
       Validators.required,
       Validators.min(1),
@@ -74,7 +74,7 @@ export class CreateBookingComponent {
 
   onSubmit(formDirective: FormGroupDirective): void {
     if (this.booking.valid) {
-      this.bookingService.createBooking({
+      this.bookingService.create({
         userId: this.booking.value.userId || 0,
         personCount: this.booking.value.personCount || 0,
         roomType: this.booking.value.roomType || 'Standard',
@@ -83,7 +83,14 @@ export class CreateBookingComponent {
       }).subscribe(() => {
         this.booking.reset();
         formDirective.resetForm();
-        this.router.navigate(['../'], { relativeTo: this.activatedRoute }).then(r => '');
+        if (this.authService.isUser()) {
+          this.router.navigate(['../successful-booking'],
+            { relativeTo: this.activatedRoute }).then(r => '');
+        }
+        if (this.authService.isAdmin()) {
+          this.router.navigate(['../bookings'],
+            { relativeTo: this.activatedRoute }).then(r => '');
+        }
       });
     }
   }

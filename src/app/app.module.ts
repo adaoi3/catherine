@@ -30,6 +30,8 @@ import { CapitalizedWordPipe } from './pipes/capitalized-word.pipe';
 import { BookingApproveDialogComponent } from './components/booking-approve-dialog/booking-approve-dialog.component';
 import { MatDialogModule } from "@angular/material/dialog";
 import { BookingDeclineDialogComponent } from './components/booking-decline-dialog/booking-decline-dialog.component';
+import { UserBookingsComponent } from './components/user-bookings/user-bookings.component';
+import { SuccessfulBookingComponent } from './components/successful-booking/successful-booking.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { BookingDeclineDialogComponent } from './components/booking-decline-dial
     BookingsComponent,
     CapitalizedWordPipe,
     BookingApproveDialogComponent,
-    BookingDeclineDialogComponent
+    BookingDeclineDialogComponent,
+    UserBookingsComponent,
+    SuccessfulBookingComponent
   ],
   imports: [
     BrowserModule,
