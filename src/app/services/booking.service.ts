@@ -73,7 +73,7 @@ export class BookingService {
   }
 
   delete(id: number) {
-    return this.http.delete(`${AppSettings.API_ENDPOINT}/bookings/${id}/cancel`)
+    return this.http.delete(`${AppSettings.API_ENDPOINT}/bookings/${id}`)
   }
 
 }

@@ -32,6 +32,7 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { BookingDeclineDialogComponent } from './components/booking-decline-dialog/booking-decline-dialog.component';
 import { UserBookingsComponent } from './components/user-bookings/user-bookings.component';
 import { SuccessfulBookingComponent } from './components/successful-booking/successful-booking.component';
+import { UnauthorizedInterceptor } from "./interceptors/unauthorized.interceptor";
 
 @NgModule({
   declarations: [
@@ -70,11 +71,18 @@ import { SuccessfulBookingComponent } from './components/successful-booking/succ
     MatSelectModule,
     MatDialogModule
   ],
-  providers: [{
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UnauthorizedInterceptor,
+      multi: true,
+    },
+    {
     provide: HTTP_INTERCEPTORS,
     useClass: AddTokenHeaderInterceptor,
     multi: true,
-  }],
+  }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

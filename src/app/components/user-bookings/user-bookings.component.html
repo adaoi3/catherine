@@ -1,4 +1,4 @@
-<h2 *ngIf="allBookings.length === 0" class="zero-bookings">You don't have any bookings...</h2>
+<h2 *ngIf="allBookings.length === 0" class="flex-center">You don't have any bookings...</h2>
 
 <table mat-table [dataSource]="pendingBookings" class="mat-elevation-z8"
        *ngIf="authService.isUser() && pendingBookings.length > 0">

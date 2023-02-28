@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -20,6 +20,12 @@ import { ROOM_TYPES } from "../../interfaces/room-type.constants";
 export class CreateBookingComponent {
 
   roomType: string[] = ROOM_TYPES.ALL_ROOM_TYPES;
+  datepickerFilter = (d: Date | null): boolean => {
+    const day = (d || new Date()).getDay();
+    return day !== 0 && day !== 6;
+  };
+  minDate = new Date();
+  maxDate = new Date(new Date().getFullYear() + 3, 11, 31);
 
   booking = this.formBuilder.group({
     id: 0,
@@ -73,8 +79,8 @@ export class CreateBookingComponent {
   }
 
   onSubmit(formDirective: FormGroupDirective): void {
-    if (this.booking.valid) {
-      this.bookingService.create({
+    if (this.booking.valid) { /*todo handle issue if user creates booking*/
+      this.bookingService.create({ /*todo with expired token*/
         userId: this.booking.value.userId || 0,
         personCount: this.booking.value.personCount || 0,
         roomType: this.booking.value.roomType || 'Standard',

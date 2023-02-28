@@ -15,6 +15,7 @@ import {
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
+  { path: '',   redirectTo: '/home', pathMatch: 'full' },
   { path: 'log-in', component: LogInComponent },
   {
     path: 'create-booking', component: CreateBookingComponent,
@@ -44,4 +45,5 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: [PermissionGuard]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
