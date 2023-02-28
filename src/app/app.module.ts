@@ -74,14 +74,14 @@ import { UnauthorizedInterceptor } from "./interceptors/unauthorized.interceptor
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: UnauthorizedInterceptor,
+      useClass: AddTokenHeaderInterceptor,
       multi: true,
     },
     {
-    provide: HTTP_INTERCEPTORS,
-    useClass: AddTokenHeaderInterceptor,
-    multi: true,
-  }
+      provide: HTTP_INTERCEPTORS,
+      useClass: UnauthorizedInterceptor,
+      multi: true,
+    }
   ],
   bootstrap: [AppComponent]
 })

@@ -79,8 +79,8 @@ export class CreateBookingComponent {
   }
 
   onSubmit(formDirective: FormGroupDirective): void {
-    if (this.booking.valid) { /*todo handle issue if user creates booking*/
-      this.bookingService.create({ /*todo with expired token*/
+    if (this.booking.valid) {
+      this.bookingService.create({
         userId: this.booking.value.userId || 0,
         personCount: this.booking.value.personCount || 0,
         roomType: this.booking.value.roomType || 'Standard',

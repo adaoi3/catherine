@@ -4,11 +4,10 @@ import {
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
-  HttpRequest,
-  HttpResponse
+  HttpRequest
 } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class UnauthorizedInterceptor implements HttpInterceptor {
@@ -24,9 +23,9 @@ export class UnauthorizedInterceptor implements HttpInterceptor {
     .pipe(
       tap({
         error: (error) => {
-          console.log('zzz')
-          if (error instanceof HttpErrorResponse){
-            console.log(error)
+          if (error instanceof HttpErrorResponse && error.status === 401) {
+            localStorage.removeItem('token');
+            this.router.navigateByUrl('/log-in').then(r => '');
           }
         }
       })
